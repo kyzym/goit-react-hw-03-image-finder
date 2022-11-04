@@ -13,13 +13,16 @@ export class Searchbar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.name);
+    const normalizedName = this.state.name.trim();
 
-    if (this.state.name.trim() !== '') {
+    this.props.onSubmit(normalizedName);
+    console.log(normalizedName);
+    if (normalizedName !== '') {
       return this.setState({ name: '' });
     }
 
     toast('nothing');
+    return;
   };
 
   render() {
