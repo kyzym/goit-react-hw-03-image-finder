@@ -12,6 +12,8 @@ export class App extends Component {
     name: '',
     page: 1,
     totalImages: 0,
+    restOfImages: 0,
+    status: 'idle',
   };
 
   handleFormSubmit = name => {
@@ -27,8 +29,6 @@ export class App extends Component {
     }));
   };
 
-  componentDidMount() {}
-
   async componentDidUpdate(_, prevState) {
     const { name, page } = this.state;
     console.log(page, '---page', prevState.page, '---prev-page');
@@ -37,19 +37,25 @@ export class App extends Component {
       return;
     }
 
-    const fetchedImages = await fetchPictures(name, page);
-    console.log(fetchedImages.totalHits);
-    this.setState({
-      images:
-        page === 1
-          ? fetchedImages.hits
-          : [...this.state.images, ...fetchedImages.hits],
-    });
+    try {
+      const fetchedImages = await fetchPictures(name, page);
+      console.log(fetchedImages);
+      this.setState({
+        images:
+          page === 1
+            ? fetchedImages.hits
+            : [...this.state.images, ...fetchedImages.hits],
+        totalImages: fetchedImages.totalHits,
+      });
 
-    return;
+      return;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
+    const restOfImages = this.state.totalImages - this.state.page * 12;
     const { handleFormSubmit, onLoadMore } = this;
     const { images } = this.state;
 
@@ -57,7 +63,7 @@ export class App extends Component {
       <div className="App">
         <Searchbar onSubmit={handleFormSubmit} />
         <ImageGallery images={images} />
-        {images.length > 0 && <LoadMoreBtn onLoadMore={onLoadMore} />}
+        {restOfImages > 0 && <LoadMoreBtn onLoadMore={onLoadMore} />}
         <ToastContainer autoClose={1000} />
       </div>
     );
