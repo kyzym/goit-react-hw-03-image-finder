@@ -7,7 +7,7 @@ import { fetchPictures } from './api/imageAPI';
 
 export class App extends Component {
   state = {
-    images: null,
+    images: [],
     name: '',
     page: 1,
   };
@@ -31,8 +31,8 @@ export class App extends Component {
     const { name, page } = this.state;
 
     if (prevState.name !== name) {
-      const images = await fetchPictures(name, page);
-      return this.setState({ images });
+      const fetchedImages = await fetchPictures(name, page);
+      return this.setState({ images: fetchedImages.hits });
     }
   }
 
@@ -40,7 +40,7 @@ export class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery />
+        <ImageGallery images={this.state.images} />
         <ToastContainer autoClose={1000} />
       </div>
     );
