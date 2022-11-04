@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 export class Searchbar extends Component {
   state = {
     name: '',
+    totalImages: 0,
   };
 
   handleNameChange = e => {
@@ -13,16 +14,16 @@ export class Searchbar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+
     const normalizedName = this.state.name.trim();
 
-    this.props.onSubmit(normalizedName);
-    console.log(normalizedName);
-    if (normalizedName !== '') {
-      return this.setState({ name: '' });
+    if (normalizedName === '' && !normalizedName) {
+      return toast('nothing');
     }
 
-    toast('nothing');
-    return;
+    this.props.onSubmit(normalizedName);
+
+    return this.setState({ name: '' });
   };
 
   render() {

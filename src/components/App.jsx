@@ -11,6 +11,7 @@ export class App extends Component {
     images: [],
     name: '',
     page: 1,
+    totalImages: 0,
   };
 
   handleFormSubmit = name => {
@@ -28,7 +29,7 @@ export class App extends Component {
 
   componentDidMount() {}
 
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(_, prevState) {
     const { name, page } = this.state;
     console.log(page, '---page', prevState.page, '---prev-page');
 
@@ -37,7 +38,7 @@ export class App extends Component {
     }
 
     const fetchedImages = await fetchPictures(name, page);
-
+    console.log(fetchedImages.totalHits);
     this.setState({
       images:
         page === 1
