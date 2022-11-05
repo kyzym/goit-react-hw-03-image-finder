@@ -1,9 +1,16 @@
+import { Loader } from 'components/Loader/Loader';
 import PropTypes from 'prop-types';
 
-export const LoadMoreBtn = ({ onLoadMore }) => (
-  <button className="Button" type="button" onClick={onLoadMore}>
-    Load more
-  </button>
+export const LoadMoreBtn = ({ onLoadMore, status }) => (
+  <>
+    {status === 'pending' ? (
+      <Loader />
+    ) : (
+      <button className="Button" onClick={onLoadMore}>
+        Load more
+      </button>
+    )}
+  </>
 );
 
 LoadMoreBtn.propTypes = {

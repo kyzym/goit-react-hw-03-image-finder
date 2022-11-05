@@ -6,7 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import { fetchPictures } from './api/imageAPI';
 import { LoadMoreBtn } from './Button/Button';
 import { Loader } from './Loader/Loader';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+// import { StartMessage } from './notes/StartMessage';
 
 export class App extends Component {
   state = {
@@ -42,10 +43,6 @@ export class App extends Component {
     try {
       const fetchedImages = await fetchPictures(name, page);
 
-      if (fetchedImages.hits.length === 0) {
-        return this.setState({ status: 'empty' });
-      }
-
       this.setState({
         images:
           page === 1
@@ -54,8 +51,6 @@ export class App extends Component {
         totalImages: fetchedImages.totalHits,
         status: 'resolved',
       });
-
-      return;
     } catch (error) {
       console.log(error);
     }
@@ -70,12 +65,12 @@ export class App extends Component {
       <div className="App">
         <Searchbar onSubmit={handleFormSubmit} />
         {status === 'pending' && totalImages === 0 && <Loader />}
+        {/* {status === 'idle' && <StartMessage />} */}
 
-        {status === 'empty' && toast('be')}
-
-        {status === 'resolved' && <ImageGallery images={images} />}
-
-        {restOfImages > 0 && <LoadMoreBtn onLoadMore={onLoadMore} />}
+        {<ImageGallery images={images} />}
+        {restOfImages > 0 && (
+          <LoadMoreBtn onLoadMore={onLoadMore} status={status} />
+        )}
 
         <ToastContainer autoClose={1000} />
       </div>
