@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { BsSearch } from 'react-icons/bs';
+import { FcSearch } from 'react-icons/fc';
 
 export class Searchbar extends Component {
   state = {
@@ -31,7 +31,7 @@ export class Searchbar extends Component {
       <header className="searchbar Searchbar">
         <form onSubmit={this.handleSubmit} className="form SearchForm">
           <button type="submit" className="button SearchForm-button">
-            <BsSearch style={{ width: 25, height: 25 }} />
+            <FcSearch style={{ width: 30, height: 30 }} />
           </button>
 
           <input
