@@ -1,8 +1,9 @@
 import { StartImageWrapper } from './StartMessage.styled';
+import cat from '../images/cat.jpg';
 
 export const StartMessage = () => (
   <StartImageWrapper>
-    <p>Please, find a picture</p>
-    <img alt="cat" src="/src/components/images/cat.jpg" />
+    <p>Need to try find something</p>
+    <img alt="cat" src={cat} />
   </StartImageWrapper>
 );
