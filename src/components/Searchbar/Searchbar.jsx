@@ -17,8 +17,8 @@ export class Searchbar extends Component {
 
     const normalizedName = this.state.name.trim();
 
-    if (normalizedName === '' && !normalizedName) {
-      return toast('nothing');
+    if (normalizedName === '') {
+      return toast('Please type something');
     }
 
     this.props.onSubmit(normalizedName);

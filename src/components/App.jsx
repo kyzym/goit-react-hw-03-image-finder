@@ -7,7 +7,7 @@ import { fetchPictures } from './api/imageAPI';
 import { LoadMoreBtn } from './Button/Button';
 import { Loader } from './Loader/Loader';
 // import { toast } from 'react-toastify';
-// import { StartMessage } from './notes/StartMessage';
+import { StartMessage } from './notes/StartMessage';
 
 export class App extends Component {
   state = {
@@ -65,7 +65,7 @@ export class App extends Component {
       <div className="App">
         <Searchbar onSubmit={handleFormSubmit} />
         {status === 'pending' && totalImages === 0 && <Loader />}
-        {/* {status === 'idle' && <StartMessage />} */}
+        {status === 'idle' && <StartMessage />}
 
         {<ImageGallery images={images} />}
         {restOfImages > 0 && (
