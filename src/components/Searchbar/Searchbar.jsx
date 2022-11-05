@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
   state = {
     name: '',
-    totalImages: 0,
   };
 
   handleNameChange = e => {
@@ -31,7 +31,7 @@ export class Searchbar extends Component {
       <header className="searchbar Searchbar">
         <form onSubmit={this.handleSubmit} className="form SearchForm">
           <button type="submit" className="button SearchForm-button">
-            <span className="button-label SearchForm-button-label">Search</span>
+            <BsSearch style={{ width: 25, height: 25 }} />
           </button>
 
           <input

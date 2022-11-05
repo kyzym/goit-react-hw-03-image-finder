@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { fetchPictures } from './api/imageAPI';
 import { LoadMoreBtn } from './Button/Button';
+// import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -12,8 +13,7 @@ export class App extends Component {
     name: '',
     page: 1,
     totalImages: 0,
-    restOfImages: 0,
-    status: 'idle',
+    // status: 'idle',
   };
 
   handleFormSubmit = name => {
