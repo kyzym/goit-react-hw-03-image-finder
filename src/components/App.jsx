@@ -17,7 +17,6 @@ export class App extends Component {
     totalImages: 0,
     largeImage: '',
     status: 'idle',
-    showModal: false,
   };
 
   handleFormSubmit = name => {
@@ -33,14 +32,12 @@ export class App extends Component {
     }));
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
-
   onModal = e => {
     this.setState({ largeImage: e });
+  };
+
+  clearImage = () => {
+    this.setState({ largeImage: '' });
   };
 
   async componentDidUpdate(_, prevState) {
@@ -72,9 +69,8 @@ export class App extends Component {
   }
 
   render() {
-    const { handleFormSubmit, onLoadMore, toggleModal, onModal } = this;
-    const { images, status, totalImages, page, largeImage, showModal } =
-      this.state;
+    const { handleFormSubmit, onLoadMore, onModal, clearImage } = this;
+    const { images, status, totalImages, page, largeImage } = this.state;
     const restOfImages = totalImages - page * 12;
 
     return (
@@ -86,19 +82,13 @@ export class App extends Component {
         {status === 'idle' && <StartMessage />}
         {status === 'empty' && <p>nothing</p>}
 
-        {
-          <ImageGallery
-            images={images}
-            showModal={toggleModal}
-            onModal={onModal}
-          />
-        }
+        {<ImageGallery images={images} onModal={onModal} />}
         {restOfImages > 0 && (
           <LoadMoreBtn onLoadMore={onLoadMore} status={status} />
         )}
 
-        {showModal && (
-          <Modal onClose={toggleModal}>
+        {largeImage && (
+          <Modal clearImage={clearImage}>
             <img src={largeImage} alt="" />
           </Modal>
         )}

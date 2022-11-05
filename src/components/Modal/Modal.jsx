@@ -16,13 +16,13 @@ export class Modal extends Component {
 
   handleKeyDown = e => {
     if (e.code === 'Escape') {
-      this.props.onClose();
+      this.props.clearImage();
     }
   };
 
-  handleBackdropClick = event => {
-    if (event.currentTarget === event.target) {
-      this.props.onClose();
+  handleBackdropClick = e => {
+    if (e.currentTarget === e.target) {
+      this.props.clearImage();
     }
   };
 

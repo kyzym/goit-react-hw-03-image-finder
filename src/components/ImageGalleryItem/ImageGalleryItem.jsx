@@ -6,9 +6,8 @@ export const ImageGalleryItem = ({
   tags,
   largeImage,
   onModal,
-  showModal,
 }) => (
-  <li className="gallery-item ImageGalleryItem" key={id} onClick={showModal}>
+  <li className="gallery-item ImageGalleryItem" key={id}>
     <img
       className="ImageGalleryItem-image"
       src={smallImage}
