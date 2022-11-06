@@ -1,13 +1,17 @@
 import { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import { fetchPictures } from './api/imageAPI';
-import { ImageGallery } from './ImageGallery/ImageGallery';
-import { Searchbar } from './Searchbar/Searchbar';
-import { LoadMoreBtn } from './Button/Button';
-import { Loader } from './Loader/Loader';
-import { Message } from './notes/Message';
-import { Modal } from './Modal/Modal';
+import { fetchPictures } from './utils/api/imageAPI';
+import {
+  ImageGallery,
+  Searchbar,
+  LoadMoreBtn,
+  Loader,
+  Message,
+  Modal,
+} from './utils/AppComponensMap';
+
+import * as SC from 'components/App.styled';
 
 export class App extends Component {
   state = {
@@ -32,8 +36,8 @@ export class App extends Component {
     }));
   };
 
-  onModal = e => {
-    this.setState({ largeImage: e });
+  onModal = imageUrl => {
+    this.setState({ largeImage: imageUrl });
   };
 
   clearLargeImage = () => {
@@ -41,7 +45,7 @@ export class App extends Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    const { query, page } = this.state;
+    const { query, page, images } = this.state;
 
     if (prevState.query === query && prevState.page === page) {
       return;
@@ -58,8 +62,7 @@ export class App extends Component {
       }
 
       this.setState({
-        images:
-          page === 1 ? fetchedImages.hits : [...this.state.images, ...hits],
+        images: page === 1 ? fetchedImages.hits : [...images, ...hits],
         totalImages: fetchedImages.totalHits,
         status: 'resolved',
       });
@@ -73,9 +76,9 @@ export class App extends Component {
     const { handleFormSubmit, onLoadMore, onModal, clearLargeImage } = this;
     const { images, status, totalImages, page, largeImage } = this.state;
     const restOfImages = totalImages - page * 12;
-    console.log(restOfImages);
+
     return (
-      <div className="App">
+      <SC.App>
         <Searchbar onSubmit={handleFormSubmit} />
 
         {status === 'pending' && totalImages === 0 && <Loader />}
@@ -89,7 +92,7 @@ export class App extends Component {
 
         {status === 'empty' && (
           <Message
-            message="We didn’t find anything. It's sad."
+            message="We didn't find anything. It's sad."
             status={status}
           />
         )}
@@ -113,7 +116,7 @@ export class App extends Component {
         )}
 
         <ToastContainer autoClose={1000} />
-      </div>
+      </SC.App>
     );
   }
 }
