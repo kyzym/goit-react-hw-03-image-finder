@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import { ImageGallery } from './ImageGallery/imageGallery';
-import { Searchbar } from './Searchbar/Searchbar';
 import { ToastContainer } from 'react-toastify';
 
 import { fetchPictures } from './api/imageAPI';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Searchbar } from './Searchbar/Searchbar';
 import { LoadMoreBtn } from './Button/Button';
 import { Loader } from './Loader/Loader';
 import { StartMessage } from './notes/StartMessage';
@@ -36,7 +36,7 @@ export class App extends Component {
     this.setState({ largeImage: e });
   };
 
-  clearImage = () => {
+  clearLargeImage = () => {
     this.setState({ largeImage: '' });
   };
 
@@ -69,7 +69,7 @@ export class App extends Component {
   }
 
   render() {
-    const { handleFormSubmit, onLoadMore, onModal, clearImage } = this;
+    const { handleFormSubmit, onLoadMore, onModal, clearLargeImage } = this;
     const { images, status, totalImages, page, largeImage } = this.state;
     const restOfImages = totalImages - page * 12;
 
@@ -88,7 +88,7 @@ export class App extends Component {
         )}
 
         {largeImage && (
-          <Modal clearImage={clearImage}>
+          <Modal clearImage={clearLargeImage}>
             <img src={largeImage} alt="" />
           </Modal>
         )}
