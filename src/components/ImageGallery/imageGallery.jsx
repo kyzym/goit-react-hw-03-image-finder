@@ -5,7 +5,7 @@ import * as SC from './ImageGallery.styled';
 
 export const ImageGallery = ({ images, onModal }) => (
   <>
-    <SC.ImageGallery>
+    <SC.Gallery>
       {images.map(({ id, webformatURL, largeImageURL, tags }) => (
         <ImageGalleryItem
           key={id}
@@ -15,7 +15,7 @@ export const ImageGallery = ({ images, onModal }) => (
           onModal={onModal}
         />
       ))}
-    </SC.ImageGallery>
+    </SC.Gallery>
   </>
 );
 
