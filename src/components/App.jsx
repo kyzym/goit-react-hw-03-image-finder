@@ -3,15 +3,13 @@ import { ToastContainer } from 'react-toastify';
 
 import { fetchPictures } from './utils/api/imageAPI';
 import {
-  // ImageGallery,
+  ImageGallery,
   Searchbar,
   LoadMoreBtn,
   Loader,
   Message,
   Modal,
 } from './utils/AppComponensMap';
-import { ImageGallery } from './ImageGallery/imageGallery';
-
 import * as SC from 'components/App.styled';
 
 export class App extends Component {
