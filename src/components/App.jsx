@@ -9,7 +9,7 @@ import {
   Loader,
   Message,
   Modal,
-} from './utils/AppComponensMap';
+} from './AppComponensMap';
 
 import * as SC from 'components/App.styled';
 
