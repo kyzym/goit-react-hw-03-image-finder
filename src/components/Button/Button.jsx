@@ -1,14 +1,13 @@
 import { Loader } from 'components/Loader/Loader';
 import PropTypes from 'prop-types';
+import * as SC from './Button.styled';
 
 export const LoadMoreBtn = ({ onLoadMore, status }) => (
   <>
     {status === 'pending' ? (
       <Loader />
     ) : (
-      <button className="Button" onClick={onLoadMore}>
-        Load more
-      </button>
+      <SC.LoadMoreBtn onClick={onLoadMore}>Load more</SC.LoadMoreBtn>
     )}
   </>
 );

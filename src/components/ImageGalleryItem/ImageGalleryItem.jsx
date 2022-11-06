@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import * as SC from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({
   id,
@@ -7,8 +8,8 @@ export const ImageGalleryItem = ({
   largeImage,
   onModal,
 }) => (
-  <li className="gallery-item ImageGalleryItem" key={id}>
-    <img
+  <SC.ImageGalleryItem key={id}>
+    <SC.ImageGalleryItemImage
       className="ImageGalleryItem-image"
       src={smallImage}
       alt={tags}
@@ -16,7 +17,7 @@ export const ImageGalleryItem = ({
         onModal(largeImage);
       }}
     />
-  </li>
+  </SC.ImageGalleryItem>
 );
 
 ImageGalleryItem.propTypes = {

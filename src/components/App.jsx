@@ -6,22 +6,22 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { LoadMoreBtn } from './Button/Button';
 import { Loader } from './Loader/Loader';
-import { StartMessage } from './notes/StartMessage';
+import { Message } from './notes/Message';
 import { Modal } from './Modal/Modal';
 
 export class App extends Component {
   state = {
     images: [],
-    name: '',
+    query: '',
     page: 1,
     totalImages: 0,
     largeImage: '',
     status: 'idle',
   };
 
-  handleFormSubmit = name => {
+  handleFormSubmit = query => {
     this.setState({
-      name,
+      query,
       page: 1,
     });
   };
@@ -41,20 +41,20 @@ export class App extends Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    const { name, page } = this.state;
+    const { query, page } = this.state;
 
-    if (prevState.name === name && prevState.page === page) {
+    if (prevState.query === query && prevState.page === page) {
       return;
     }
 
     this.setState({ status: 'pending' });
 
     try {
-      const fetchedImages = await fetchPictures(name, page);
+      const fetchedImages = await fetchPictures(query, page);
       const { hits } = fetchedImages;
 
       if (hits.length === 0) {
-        return this.setState({ status: 'empty' });
+        return this.setState({ status: 'empty', images: [] });
       }
 
       this.setState({
@@ -65,6 +65,7 @@ export class App extends Component {
       });
     } catch (error) {
       console.log(error);
+      this.setState({ status: 'error' });
     }
   }
 
@@ -72,24 +73,42 @@ export class App extends Component {
     const { handleFormSubmit, onLoadMore, onModal, clearLargeImage } = this;
     const { images, status, totalImages, page, largeImage } = this.state;
     const restOfImages = totalImages - page * 12;
-
+    console.log(restOfImages);
     return (
       <div className="App">
         <Searchbar onSubmit={handleFormSubmit} />
 
         {status === 'pending' && totalImages === 0 && <Loader />}
 
-        {status === 'idle' && <StartMessage />}
-        {status === 'empty' && <p>nothing</p>}
+        {status === 'idle' && (
+          <Message
+            message="I lost the image, please find it."
+            status={status}
+          />
+        )}
+
+        {status === 'empty' && (
+          <Message
+            message="We didn’t find anything. It's sad."
+            status={status}
+          />
+        )}
+
+        {status === 'error' && (
+          <Message
+            message="We have a problem. We have to look at the console logs."
+            status={status}
+          />
+        )}
 
         {<ImageGallery images={images} onModal={onModal} />}
-        {restOfImages > 0 && (
+        {restOfImages > 0 && images.length > 0 && (
           <LoadMoreBtn onLoadMore={onLoadMore} status={status} />
         )}
 
         {largeImage && (
           <Modal clearImage={clearLargeImage}>
-            <img src={largeImage} alt="" />
+            <img src={largeImage} alt="Sorry, nothing here" />
           </Modal>
         )}
 

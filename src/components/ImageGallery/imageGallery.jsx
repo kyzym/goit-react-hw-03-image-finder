@@ -1,9 +1,11 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import PropTypes from 'prop-types';
 
+import * as SC from './ImageGallery.styled';
+
 export const ImageGallery = ({ images, onModal }) => (
   <>
-    <ul className="gallery ImageGallery">
+    <SC.ImageGallery>
       {images.map(({ id, webformatURL, largeImageURL, tags }) => (
         <ImageGalleryItem
           key={id}
@@ -13,7 +15,7 @@ export const ImageGallery = ({ images, onModal }) => (
           onModal={onModal}
         />
       ))}
-    </ul>
+    </SC.ImageGallery>
   </>
 );
 
