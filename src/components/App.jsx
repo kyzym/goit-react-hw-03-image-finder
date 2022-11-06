@@ -110,7 +110,7 @@ export class App extends Component {
 
         {largeImage && (
           <Modal clearImage={clearLargeImage}>
-            <img src={largeImage} alt="Sorry, nothing here" />
+            <img src={largeImage} alt="Sorry, nothing here " />
           </Modal>
         )}
 
