@@ -1,7 +1,7 @@
 import { MessageImageWrapper, NotificationMessage } from './Message.styled';
 import PropTypes from 'prop-types';
-import cat from '../images/cat.jpg';
-import aaa from '../images/kamikaze.jpg';
+import cat from '../utils/images/cat.jpg';
+import aaa from '../utils/images/kamikaze.jpg';
 
 export const Message = ({ message, status }) => (
   <MessageImageWrapper>
