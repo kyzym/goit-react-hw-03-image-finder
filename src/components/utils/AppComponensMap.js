@@ -1,4 +1,4 @@
-export * from '../ImageGallery/ImageGallery';
+export * from '../ImageGallery/ImgGallery';
 export * from '../Searchbar/Searchbar';
 export * from '../Button/Button';
 export * from '../Loader/Loader';
