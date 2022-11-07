@@ -44,7 +44,7 @@ export class App extends Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    const { query, page, images } = this.state;
+    const { query, page } = this.state;
 
     if (prevState.query === query && prevState.page === page) {
       return;
@@ -60,11 +60,11 @@ export class App extends Component {
         return this.setState({ status: 'empty', images: [] });
       }
 
-      this.setState({
-        images: page === 1 ? fetchedImages.hits : [...images, ...hits],
+      this.setState(prevState => ({
+        images: [...prevState.images, ...hits],
         totalImages: fetchedImages.totalHits,
         status: 'resolved',
-      });
+      }));
     } catch (error) {
       console.log(error);
       this.setState({ status: 'error' });
